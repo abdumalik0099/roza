@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#06191a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ramazon 2026">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192x192.png">
+<title>Ramazon 2026 — Qarshi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --teal:#17857e;--td:#093535;--tm:#0f5252;
+  --gold:#d4a843;--gl:#f0cc70;
+  --bg:#06191a;--card:rgba(255,255,255,0.055);--brd:rgba(212,168,67,0.22);
+  --txt:#dff0f0;--mut:#6eaaaa;
+}
+html,body{width:100%;height:100%;background:var(--bg);color:var(--txt);font-family:'Nunito',sans-serif;overflow:hidden}
+#app{width:100%;max-width:430px;height:100dvh;margin:0 auto;display:flex;flex-direction:column;overflow:hidden}
+
+.scr{display:none;flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:8px}
+.scr.on{display:block}
+
+/* NAV */
+.bnav{flex-shrink:0;display:flex;background:#071f1f;border-top:1px solid var(--brd);z-index:50;padding-bottom:env(safe-area-inset-bottom,0px)}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:9px 0 12px;background:none;border:none;color:var(--mut);font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:color .2s;-webkit-appearance:none}
+.nb.on{color:var(--gold)}
+.nb em{font-size:20px;line-height:1;font-style:normal}
+
+/* MOSQUE */
+.mhdr{position:relative;height:200px;background:linear-gradient(155deg,#0d6060 0%,#1a9898 45%,#093535 100%);overflow:hidden;flex-shrink:0}
+.mpat{position:absolute;inset:0;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg width='44' height='44' viewBox='0 0 44 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 0L33 11L22 22L11 11Z M0 22L11 11L22 22L11 33Z M44 22L33 11L22 22L33 33Z M22 44L11 33L22 22L33 33Z' fill='%23d4a843'/%3E%3C/svg%3E")}
+.arch1{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:190px;height:172px;border:3px solid var(--gold);border-bottom:none;border-radius:95px 95px 0 0;box-shadow:0 0 28px rgba(212,168,67,.35),inset 0 0 24px rgba(212,168,67,.05)}
+.arch2{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:132px;height:118px;border:1.5px solid rgba(212,168,67,.3);border-bottom:none;border-radius:66px 66px 0 0}
+.moon{position:absolute;top:12px;left:50%;transform:translateX(-50%);font-size:46px;line-height:1;filter:drop-shadow(0 0 18px rgba(212,168,67,.95));animation:fl 3.5s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-7px)}}
+.htop{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:12px 14px}
+.cpill{background:rgba(0,0,0,.32);border:1px solid var(--brd);border-radius:20px;padding:6px 14px;color:var(--gl);font-size:14px;font-weight:800;font-family:'Nunito',sans-serif}
+.dpill{background:rgba(0,0,0,.32);border:1px solid var(--brd);border-radius:20px;padding:6px 12px;text-align:right;font-size:11px;color:var(--mut)}
+.dpill b{display:block;color:var(--gold);font-size:13px;font-weight:800}
+
+/* HOME CARD */
+.hcard{margin:10px 12px 0;background:linear-gradient(135deg,rgba(23,133,126,.25),rgba(6,25,26,.85));border:1px solid var(--brd);border-radius:18px;padding:14px 12px;backdrop-filter:blur(10px)}
+.trow{display:flex;align-items:center;gap:12px}
+.rw{position:relative;width:118px;height:118px;flex-shrink:0}
+.rw svg{width:118px;height:118px;transform:rotate(-90deg);display:block}
+.rb{fill:none;stroke:rgba(255,255,255,.07);stroke-width:9}
+.rp{fill:none;stroke:#26c5c5;stroke-width:9;stroke-linecap:round;stroke-dasharray:295;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear}
+.rc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.cd{font-size:17px;font-weight:900;color:#fff;letter-spacing:.3px;line-height:1.1}
+.cl{font-size:9px;color:var(--mut);font-weight:700;letter-spacing:.4px;margin-top:2px}
+.ti{flex:1;display:flex;flex-direction:column;gap:8px}
+.tim{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.05);border:1px solid transparent;border-radius:12px;padding:9px 11px;cursor:pointer;-webkit-tap-highlight-color:rgba(212,168,67,.08)}
+.tim:active{background:rgba(255,255,255,.12)}
+.timl{display:flex;align-items:center;gap:8px}
+.tico{font-size:18px;line-height:1}
+.tn{font-size:10px;color:var(--mut);font-weight:700;line-height:1;margin-bottom:2px}
+.tv{font-size:20px;font-weight:900;color:#fff;line-height:1}
+.db{font-size:20px;background:none;border:none;cursor:pointer;padding:6px;border-radius:50%;line-height:1;transition:transform .15s;flex-shrink:0;-webkit-appearance:none}
+.db:active{transform:scale(.78)}
+
+/* SECTIONS */
+.sec{padding:12px 12px 0}
+.st{font-size:14px;font-weight:800;color:var(--gl);margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.div{height:1px;background:var(--brd);margin:12px 12px}
+.qpr{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--brd);border-radius:12px;padding:10px 14px;margin-bottom:8px}
+.remcard{margin:0 12px 14px;background:var(--card);border:1px solid var(--brd);border-radius:15px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+.remn{font-size:46px;font-weight:900;color:var(--gold);line-height:1;text-shadow:0 0 28px rgba(212,168,67,.4)}
+
+/* SCREEN HEADER */
+.sh{background:linear-gradient(135deg,var(--td),var(--tm));padding:16px 14px 20px;position:relative;overflow:hidden;flex-shrink:0}
+.sh::before{content:'';position:absolute;inset:0;opacity:.08;background-image:url("data:image/svg+xml,%3Csvg width='44' height='44' viewBox='0 0 44 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22 0L33 11L22 22L11 11Z M0 22L11 11L22 22L11 33Z M44 22L33 11L22 22L33 33Z M22 44L11 33L22 22L33 33Z' fill='%23d4a843'/%3E%3C/svg%3E")}
+.sh-t{font-size:19px;font-weight:800;color:var(--gl);position:relative;margin-bottom:3px}
+.sh-s{font-size:12px;color:var(--mut);position:relative}
+
+/* PRAYER */
+.pc{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:14px 16px;margin-bottom:9px;position:relative;overflow:hidden}
+.pc.cur{border-color:rgba(212,168,67,.5);background:rgba(212,168,67,.07)}
+.pc.cur::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(to bottom,var(--gold),var(--gl))}
+.pico{font-size:24px;width:38px;text-align:center}
+.pin{flex:1;margin-left:10px}
+.pn{font-size:15px;font-weight:700}
+.par{font-family:'Amiri',serif;font-size:13px;color:var(--mut);margin-left:5px}
+.pd{font-size:11px;color:var(--mut);font-weight:600;margin-top:1px}
+.pt{font-size:20px;font-weight:900;color:var(--gl)}
+.pbg{font-size:10px;font-weight:800;padding:2px 7px;border-radius:7px;background:var(--gold);color:#000;margin-top:2px;display:inline-block}
+
+/* FAST */
+.fh{margin:12px;background:linear-gradient(135deg,rgba(23,133,126,.28),rgba(212,168,67,.08));border:1px solid var(--brd);border-radius:16px;padding:18px;text-align:center}
+.fn{font-size:64px;font-weight:900;color:var(--gold);line-height:1;text-shadow:0 0 36px rgba(212,168,67,.45)}
+.fl{font-size:13px;color:var(--mut);font-weight:600;margin-top:4px}
+.fpb{height:8px;background:rgba(255,255,255,.08);border-radius:8px;overflow:hidden;margin:12px 0 3px}
+.fpf{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--teal),var(--gold));transition:width 1s}
+.ftr{display:flex;gap:10px;margin:0 12px}
+.ftc{flex:1;background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:13px 10px;text-align:center}
+.ftl{font-size:10px;color:var(--mut);font-weight:700;letter-spacing:.3px;margin-bottom:5px}
+.ftv{font-size:22px;font-weight:900;color:#fff}
+.fts{font-size:11px;color:var(--mut);margin-top:2px}
+.ftb{display:block;margin:9px 0 0;padding:7px 10px;border-radius:9px;background:rgba(212,168,67,.13);border:1px solid var(--brd);color:var(--gold);font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;width:100%;-webkit-appearance:none}
+.ftb:active{opacity:.7}
+
+/* CALENDAR */
+.cal-wrap{margin:0 12px}
+.cal-head{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px}
+.cal-dn{text-align:center;font-size:10px;font-weight:800;color:var(--mut);padding:4px 0}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.dc{aspect-ratio:1;background:var(--card);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--brd)}
+.dc .rday{font-size:11px;font-weight:800;line-height:1}
+.dc .greg{font-size:8px;color:var(--mut);line-height:1;margin-top:1px}
+.dc.past{background:rgba(212,168,67,.22);border-color:rgba(212,168,67,.45)}
+.dc.past .rday{color:var(--gl)}
+.dc.past .greg{color:rgba(240,204,112,.65)}
+.dc.today{background:rgba(212,168,67,.22);border-color:rgba(212,168,67,.45)}
+.dc.today .rday{color:var(--gl)}
+.dc.today .greg{color:rgba(240,204,112,.65)}
+.dc.fut{background:var(--card);border-color:var(--brd);opacity:1}
+.dc.fut .rday{color:var(--mut)}
+.dc.fut .greg{color:rgba(110,170,170,.45)}
+.dc.empty{background:transparent;border-color:transparent}
+
+/* TASBIH */
+.tbw{display:flex;flex-direction:column;align-items:center;padding:14px 14px}
+.tbcs{display:flex;gap:7px;width:100%;flex-wrap:wrap;margin-bottom:16px}
+.tbc{padding:7px 13px;border-radius:20px;border:1px solid var(--brd);background:var(--card);color:var(--mut);font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .2s;-webkit-appearance:none}
+.tbc.on{background:var(--gold);color:#000;border-color:var(--gold)}
+.tbc2{width:200px;height:200px;border-radius:50%;border:3px solid var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;user-select:none;box-shadow:0 0 36px rgba(212,168,67,.18),inset 0 0 28px rgba(0,0,0,.3);transition:transform .1s,box-shadow .1s;margin:4px 0;-webkit-appearance:none;font-family:'Nunito',sans-serif;background:radial-gradient(circle,rgba(23,133,126,.38) 0%,rgba(212,168,67,.08) 100%)}
+.tbc2:active{transform:scale(.91)}
+.tbn{font-size:70px;font-weight:900;color:var(--gl);line-height:1}
+.tbnm{font-size:12px;color:var(--mut);font-weight:700;margin-top:4px}
+.tba{font-family:'Amiri',serif;font-size:20px;color:var(--gold);margin-top:5px}
+.tbset{font-size:13px;color:var(--mut);margin-top:10px}
+.tbttl{font-size:12px;color:rgba(212,168,67,.7);margin-top:3px}
+.tbpb{width:100%;height:7px;background:rgba(255,255,255,.07);border-radius:7px;overflow:hidden;margin:13px 0}
+.tbpf{height:100%;border-radius:7px;background:linear-gradient(90deg,var(--teal),var(--gold));transition:width .25s}
+.tbr{width:100%;padding:13px;border-radius:12px;border:1px solid var(--brd);background:var(--card);color:var(--mut);font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;-webkit-appearance:none}
+.tbr:active{background:rgba(255,255,255,.1)}
+
+/* DUA MODAL */
+.mov{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(8px);display:flex;align-items:flex-end;justify-content:center;z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
+.mov.on{opacity:1;pointer-events:all}
+.mbox{width:100%;max-width:430px;background:linear-gradient(160deg,#0d4444,#071e1e);border:1px solid var(--brd);border-radius:22px 22px 0 0;padding:20px 16px 32px;transform:translateY(100%);transition:transform .35s ease;max-height:90vh;overflow-y:auto}
+.mov.on .mbox{transform:translateY(0)}
+.mhnd{width:38px;height:4px;background:rgba(255,255,255,.18);border-radius:4px;margin:0 auto 16px;cursor:pointer}
+.mt{font-size:17px;font-weight:800;color:var(--gl);text-align:center;margin-bottom:4px}
+.ms{font-size:12px;color:var(--mut);text-align:center;margin-bottom:16px}
+.dtbs{display:flex;gap:8px;justify-content:center;margin-bottom:16px}
+.dtb{padding:7px 16px;border-radius:18px;border:1px solid var(--brd);background:var(--card);color:var(--mut);font-size:13px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .2s;-webkit-appearance:none}
+.dtb.on{background:var(--gold);color:#000;border-color:var(--gold)}
+.dc2{display:none}
+.dc2.on{display:block}
+.dar{font-family:'Amiri',serif;font-size:22px;color:var(--gl);text-align:right;line-height:1.9;margin-bottom:11px;background:rgba(212,168,67,.05);border-radius:12px;padding:13px;border:1px solid var(--brd)}
+.dtr{font-size:13px;color:var(--mut);line-height:1.65;font-style:italic;margin-bottom:10px;padding:0 2px}
+.duz{font-size:14px;color:var(--txt);line-height:1.7;background:rgba(23,133,126,.1);border-radius:12px;padding:12px;border:1px solid rgba(23,133,126,.25)}
+.mb{width:100%;margin-top:12px;padding:13px;border-radius:12px;border:1px solid var(--brd);background:var(--card);color:var(--mut);font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;-webkit-appearance:none}
+.mb:active{opacity:.7}
+
+/* TOAST */
+.tst{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-110px);background:linear-gradient(135deg,#0e4444,#155555);border:1px solid var(--gold);border-radius:14px;padding:11px 16px;min-width:260px;max-width:350px;z-index:300;text-align:center;box-shadow:0 8px 28px rgba(0,0,0,.6);transition:transform .4s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
+.tst.on{transform:translateX(-50%) translateY(0)}
+.ti2{font-size:20px;margin-bottom:3px}
+.tt2{font-size:13px;font-weight:800;color:var(--gl)}
+.ts2{font-size:11px;color:var(--mut);margin-top:2px}
+.tgl{position:relative;display:inline-block;width:50px;height:28px}
+.tgl input{opacity:0;width:0;height:0}
+.tgs{position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,.15);border-radius:28px;transition:.3s}
+.tgs:before{content:"";position:absolute;width:22px;height:22px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}
+input:checked+.tgs{background:var(--teal)}
+input:checked+.tgs:before{transform:translateX(22px)}
+.ntrow{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--card);border:1px solid var(--brd);border-radius:12px;margin-bottom:7px}
+.ntrow.off{opacity:.45}
+.ntleft{display:flex;align-items:center;gap:10px}
+.infobox{margin:0 12px 14px;background:rgba(212,168,67,.06);border:1px solid var(--brd);border-radius:12px;padding:12px;font-size:12px;color:var(--mut);line-height:1.8}
+</style>
+</head>
+<body>
+
+<!-- UPDATE BANNER -->
+<div id="updateBanner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:400;background:linear-gradient(135deg,#0d4444,#1a6060);border-bottom:1px solid var(--gold);padding:10px 14px;max-width:430px;margin:0 auto"></div>
+
+<!-- TOAST -->
+<div class="tst" id="toast">
+  <div class="ti2" id="tIco">🔔</div>
+  <div class="tt2" id="tTxt"></div>
+  <div class="ts2" id="tSub"></div>
+</div>
+
+<!-- DUA MODAL -->
+<div class="mov" id="dMov" onclick="closeDua(event)">
+  <div class="mbox">
+    <div class="mhnd" onclick="closeDua()"></div>
+    <div class="mt" id="mT">🤲 Dua</div>
+    <div class="ms" id="mS"></div>
+    <div class="dtbs">
+      <button class="dtb on" id="dt0" onclick="swDua(0)">Og'iz ochish</button>
+      <button class="dtb" id="dt1" onclick="swDua(1)">Og'iz yopish</button>
+    </div>
+
+    <!-- OG'IZ OCHISH — IFTOR DUOSI -->
+    <div class="dc2 on" id="d0">
+      <div class="dar">اَللّٰهُمَّ لَكَ صُمْتُ وَبِكَ اٰمَنْتُ وَعَلَيْكَ تَوَكَّلْتُ وَعَلٰى رِزْقِكَ اَفْطَرْتُ فَاغْفِرْلِي يَا غَفَّارُ مَا قَدَّمْتُ وَمَا اَخَّرْتُ</div>
+      <div class="dtr">Allohumma laka sumtu va bika amantu va 'alayka tavakkaltu va 'ala rizqika aftartu. Fag'firli ya G'offaru ma qoddamtu va ma axxortu.</div>
+      <div class="duz">
+        <b style="color:var(--gold)">O'zbekcha maʼnosi:</b><br><br>
+        Allohim! Sening uchun ro'za tutdim, Senga imon keltirdim, Senga tavakkal qildim va Sening rizqing bilan og'iz ochdim. Ey Mag'firatli Zot, o'tgan va kelajakdagi gunohlarimni kechir!
+      </div>
+    </div>
+
+    <!-- OG'IZ YOPISH — SAHAR NIYATI -->
+    <div class="dc2" id="d1">
+      <div class="dar">نَوَيْتُ اَنْ اَصُومَ صَوْمَ شَهْرِ رَمَضَانَ مِنَ الْفَجْرِ اِلَى الْمَغْرِبِ خَالِصاً لِلّٰهِ تَعَالٰى اَللّٰهُ اَكْبَرُ</div>
+      <div class="dtr">Navaytu an asuma sovma shahri Ramazona minal fajri ilal mag'ribi, xolisan lillahi ta'ala. Allohu akbar.</div>
+      <div class="duz">
+        <b style="color:var(--gold)">O'zbekcha maʼnosi:</b><br><br>
+        Ramazon oyida tongdan shomgacha, faqat Alloh taolo uchun ro'za tutishga niyat qildim. Allohu akbar!
+      </div>
+    </div>
+
+    <button class="mb" onclick="closeDua()">✕ Yopish</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+  <!-- BOSH -->
+  <div class="scr on" id="s0">
+    <div class="mhdr">
+      <div class="mpat"></div>
+      <div class="arch1"></div>
+      <div class="arch2"></div>
+      <div class="moon">🌙⭐</div>
+      <div class="htop">
+        <div class="cpill">🕌 Qarshi</div>
+        <div class="dpill"><b id="hDv">—</b><span id="hRd">— kun Ramazon</span></div>
+      </div>
+    </div>
+
+    <div class="hcard">
+      <div class="trow">
+        <div class="rw">
+          <svg viewBox="0 0 118 118">
+            <circle class="rb" cx="59" cy="59" r="47"/>
+            <circle class="rp" id="rp" cx="59" cy="59" r="47"/>
+          </svg>
+          <div class="rc">
+            <div class="cd" id="hC">--:--:--</div>
+            <div class="cl" id="hL">YUKLANMOQDA</div>
+          </div>
+        </div>
+        <div class="ti">
+          <div class="tim" onclick="openDua('sahar')">
+            <div class="timl">
+              <span class="tico">🌅</span>
+              <div><div class="tn">SAHARLIK</div><div class="tv" id="hSh">--:--</div></div>
+            </div>
+            <button class="db" onclick="event.stopPropagation();openDua('sahar')">🤲</button>
+          </div>
+          <div class="tim" onclick="openDua('iftar')">
+            <div class="timl">
+              <span class="tico">🌙</span>
+              <div><div class="tn">IFTORLIK</div><div class="tv" id="hIf">--:--</div></div>
+            </div>
+            <button class="db" onclick="event.stopPropagation();openDua('iftar')">🤲</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+    <div class="sec">
+      <div class="st">🕌 Bugungi namoz vaqtlari</div>
+      <div id="hPL"></div>
+    </div>
+
+    <div class="div"></div>
+    <div class="remcard">
+      <div>
+        <div style="font-size:14px;font-weight:700;color:var(--txt)">Ramazonda qolgan</div>
+        <div style="font-size:12px;color:var(--mut);margin-top:2px">1447 Hijriy</div>
+      </div>
+      <div style="text-align:right">
+        <div class="remn" id="hRm">--</div>
+        <div style="font-size:12px;color:var(--mut)">kun</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAMOZ -->
+  <div class="scr" id="s1">
+    <div class="sh">
+      <div class="sh-t">🕌 Namoz Vaqtlari</div>
+      <div class="sh-s" id="pSub">Qarshi shahri · Bugun</div>
+    </div>
+    <div style="padding:12px" id="pL"></div>
+    <div class="infobox">
+      🗺️ <b style="color:var(--gl)">Qarshi shahri</b> — Qashqadaryo viloyati<br>
+      📍 38.87°N, 65.79°E · UTC+5 (O'zbekiston vaqti)
+    </div>
+  </div>
+
+  <!-- ROZA -->
+  <div class="scr" id="s2">
+    <div class="sh">
+      <div class="sh-t">☀️ Roza Vaqtlari</div>
+      <div class="sh-s">1447 Hijriy · Ramazon oyi</div>
+    </div>
+    <div class="fh">
+      <div class="fn" id="fD">—</div>
+      <div class="fl">Bugungi Ramazon kuni</div>
+      <div style="font-size:13px;color:rgba(240,204,112,.75);margin-top:3px" id="fGreg">—</div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--mut);margin-top:10px"><span>1-kun</span><span>30-kun</span></div>
+      <div class="fpb"><div class="fpf" id="fF" style="width:0%"></div></div>
+    </div>
+    <div style="height:10px"></div>
+    <div class="ftr">
+      <div class="ftc">
+        <div class="ftl">🌅 SAHARLIK</div>
+        <div class="ftv" id="fSh">--:--</div>
+        <div class="fts">Og'iz yopish</div>
+        <button class="ftb" onclick="openDua('sahar')">🤲 Niyat duosi</button>
+      </div>
+      <div class="ftc">
+        <div class="ftl">🌙 IFTORLIK</div>
+        <div class="ftv" id="fIf">--:--</div>
+        <div class="fts">Og'iz ochish</div>
+        <button class="ftb" onclick="openDua('iftar')">🤲 Iftor duosi</button>
+      </div>
+    </div>
+    <div class="div"></div>
+    <div class="sec">
+      <div class="st">📅 Ramazon kunlari</div>
+      <div class="cal-wrap">
+        <div class="cal-head" id="calH"></div>
+        <div class="cal-grid" id="dG"></div>
+      </div>
+    </div>
+    <div style="height:14px"></div>
+  </div>
+
+  <!-- TASBIH -->
+  <div class="scr" id="s3">
+    <div class="sh">
+      <div class="sh-t">📿 Tasbih</div>
+      <div class="sh-s">Zikr sanagich — cheksiz</div>
+    </div>
+    <div class="tbw">
+      <div class="tbcs" id="tbCs"></div>
+      <button class="tbc2" id="tbC" onclick="tapT()">
+        <div class="tbn" id="tbN">0</div>
+        <div class="tbnm" id="tbNm">SubhanAlloh</div>
+        <div class="tba" id="tbA">سُبْحَانَ اللَّهِ</div>
+      </button>
+      <div class="tbset" id="tbSt">Har doira: 33 marta</div>
+      <div class="tbttl" id="tbTt">Jami: 0 marta</div>
+      <div class="tbpb"><div class="tbpf" id="tbF" style="width:0%"></div></div>
+      <button class="tbr" onclick="resetT()">🔄 Qayta boshlash</button>
+    </div>
+  </div>
+
+  <!-- SOZLAMALAR -->
+  <div class="scr" id="s4">
+    <div class="sh">
+      <div class="sh-t">⚙️ Sozlamalar</div>
+      <div class="sh-s">Bildirganomalar va ilova sozlamalari</div>
+    </div>
+
+    <!-- BILDIRGANOMALAR -->
+    <div class="sec" style="margin-top:8px">
+      <div class="st">🔔 Bildirganomalar</div>
+
+      <!-- Umumiy toggle -->
+      <div class="qpr" style="margin-bottom:12px">
+        <div>
+          <div style="font-size:14px;font-weight:800;color:var(--txt)">Barcha bildirganomalar</div>
+          <div style="font-size:11px;color:var(--mut);margin-top:2px">Hammani yoqish / o'chirish</div>
+        </div>
+        <label class="tgl"><input type="checkbox" id="ntAll" onchange="toggleAllNotif(this.checked)"><span class="tgs"></span></label>
+      </div>
+
+      <!-- Har namoz uchun -->
+      <div id="notifList"></div>
+    </div>
+
+    <div class="div"></div>
+
+    <!-- ILOVA HAQIDA -->
+    <div class="sec">
+      <div class="st">📱 Ilova haqida</div>
+      <div class="qpr" style="margin-bottom:8px">
+        <div style="font-size:13px;font-weight:700;color:var(--txt)">Versiya</div>
+        <div style="font-size:13px;color:var(--mut)" id="appVerTxt">v1.0.0</div>
+      </div>
+      <div class="qpr" style="margin-bottom:8px">
+        <div style="font-size:13px;font-weight:700;color:var(--txt)">Shahar</div>
+        <div style="font-size:13px;color:var(--mut)">Qarshi · 38.87°N 65.78°E</div>
+      </div>
+      <div class="qpr" style="margin-bottom:8px">
+        <div style="font-size:13px;font-weight:700;color:var(--txt)">Hisob usuli</div>
+        <div style="font-size:13px;color:var(--mut)">O'z Muslim Board</div>
+      </div>
+      <button onclick="checkUpdate()" style="width:100%;margin-top:4px;padding:12px;border-radius:12px;border:1px solid var(--brd);background:var(--card);color:var(--gl);font-size:14px;font-weight:700;cursor:pointer;font-family:Nunito,sans-serif">
+        🔄 Yangilanishni tekshirish
+      </button>
+    </div>
+
+    <div style="height:20px"></div>
+  </div>
+
+  <nav class="bnav">
+    <button class="nb on" id="nb0" onclick="goS(0)"><em>🏠</em>Bosh</button>
+    <button class="nb" id="nb1" onclick="goS(1)"><em>🕌</em>Namoz</button>
+    <button class="nb" id="nb2" onclick="goS(2)"><em>☀️</em>Roza</button>
+    <button class="nb" id="nb3" onclick="goS(3)"><em>📿</em>Tasbih</button>
+    <button class="nb" id="nb4" onclick="goS(4)"><em>⚙️</em>Sozlama</button>
+  </nav>
+</div>
+
+<script>
+// ============================================================
+// NAMOZ VAQTLARI — Qarshi 2026 (to'liq yil, namozvaqti.uz asosida)
+// Format: "Fajr,Sunrise,Dhuhr,Asr,Maghrib,Isha"
+// ============================================================
+const PT={
+"2026-01-01":"06:36,07:54,12:40,15:46,17:31,18:45",
+"2026-01-02":"06:36,07:54,12:41,15:47,17:32,18:46",
+"2026-01-03":"06:36,07:55,12:41,15:48,17:33,18:47",
+"2026-01-04":"06:36,07:55,12:42,15:49,17:34,18:47",
+"2026-01-05":"06:36,07:55,12:42,15:50,17:34,18:48",
+"2026-01-06":"06:37,07:55,12:42,15:51,17:35,18:49",
+"2026-01-07":"06:37,07:55,12:43,15:51,17:36,18:50",
+"2026-01-08":"06:37,07:55,12:43,15:52,17:37,18:51",
+"2026-01-09":"06:37,07:54,12:44,15:53,17:38,18:52",
+"2026-01-10":"06:37,07:54,12:44,15:54,17:39,18:52",
+"2026-01-11":"06:37,07:54,12:45,15:55,17:40,18:53",
+"2026-01-12":"06:36,07:54,12:45,15:56,17:41,18:54",
+"2026-01-13":"06:36,07:54,12:45,15:57,17:42,18:55",
+"2026-01-14":"06:36,07:53,12:46,15:58,17:43,18:56",
+"2026-01-15":"06:36,07:53,12:46,15:59,17:44,18:57",
+"2026-01-16":"06:36,07:53,12:46,16:00,17:45,18:58",
+"2026-01-17":"06:36,07:52,12:47,16:01,17:46,18:59",
+"2026-01-18":"06:35,07:52,12:47,16:03,17:47,19:00",
+"2026-01-19":"06:35,07:51,12:47,16:04,17:49,19:01",
+"2026-01-20":"06:35,07:51,12:48,16:05,17:50,19:02",
+"2026-01-21":"06:34,07:50,12:48,16:06,17:51,19:03",
+"2026-01-22":"06:34,07:50,12:48,16:07,17:52,19:04",
+"2026-01-23":"06:33,07:49,12:49,16:08,17:53,19:05",
+"2026-01-24":"06:33,07:49,12:49,16:09,17:54,19:06",
+"2026-01-25":"06:32,07:48,12:49,16:10,17:55,19:07",
+"2026-01-26":"06:32,07:47,12:49,16:11,17:56,19:08",
+"2026-01-27":"06:31,07:46,12:50,16:13,17:58,19:09",
+"2026-01-28":"06:31,07:46,12:50,16:14,17:59,19:10",
+"2026-01-29":"06:30,07:45,12:50,16:15,18:00,19:11",
+"2026-01-30":"06:29,07:44,12:50,16:16,18:01,19:12",
+"2026-01-31":"06:29,07:43,12:50,16:17,18:02,19:13",
+"2026-02-01":"06:28,07:42,12:50,16:18,18:03,19:14",
+"2026-02-02":"06:27,07:42,12:51,16:19,18:05,19:15",
+"2026-02-03":"06:27,07:41,12:51,16:20,18:06,19:16",
+"2026-02-04":"06:26,07:40,12:51,16:22,18:07,19:17",
+"2026-02-05":"06:25,07:39,12:51,16:23,18:08,19:18",
+"2026-02-06":"06:24,07:38,12:51,16:24,18:09,19:19",
+"2026-02-07":"06:23,07:37,12:51,16:25,18:10,19:20",
+"2026-02-08":"06:22,07:36,12:51,16:26,18:11,19:21",
+"2026-02-09":"06:21,07:35,12:51,16:27,18:13,19:22",
+"2026-02-10":"06:20,07:33,12:51,16:28,18:14,19:23",
+"2026-02-11":"06:19,07:32,12:51,16:29,18:15,19:24",
+"2026-02-12":"06:18,07:31,12:51,16:30,18:16,19:25",
+"2026-02-13":"06:17,07:30,12:51,16:31,18:17,19:26",
+"2026-02-14":"06:16,07:29,12:51,16:32,18:18,19:27",
+"2026-02-15":"06:15,07:28,12:51,16:34,18:19,19:28",
+"2026-02-16":"06:14,07:26,12:51,16:35,18:21,19:29",
+"2026-02-17":"06:13,07:25,12:51,16:36,18:22,19:30",
+"2026-02-18":"06:12,07:24,12:51,16:37,18:23,19:31",
+"2026-02-19":"06:10,07:23,12:51,16:38,18:24,19:32",
+"2026-02-20":"06:09,07:21,12:51,16:39,18:25,19:33",
+"2026-02-21":"06:08,07:20,12:51,16:40,18:26,19:34",
+"2026-02-22":"06:07,07:19,12:50,16:41,18:27,19:35",
+"2026-02-23":"06:05,07:17,12:50,16:42,18:28,19:36",
+"2026-02-24":"06:04,07:16,12:50,16:43,18:29,19:37",
+"2026-02-25":"06:03,07:15,12:50,16:43,18:30,19:38",
+"2026-02-26":"06:02,07:13,12:50,16:44,18:32,19:39",
+"2026-02-27":"06:00,07:12,12:50,16:45,18:33,19:40",
+"2026-02-28":"05:59,07:10,12:49,16:46,18:34,19:41",
+"2026-03-01":"05:57,07:09,12:49,16:47,18:35,19:42",
+"2026-03-02":"05:56,07:07,12:49,16:48,18:36,19:43",
+"2026-03-03":"05:55,07:06,12:49,16:49,18:37,19:44",
+"2026-03-04":"05:53,07:04,12:49,16:50,18:38,19:45",
+"2026-03-05":"05:52,07:03,12:48,16:51,18:39,19:46",
+"2026-03-06":"05:50,07:02,12:48,16:52,18:40,19:47",
+"2026-03-07":"05:49,07:00,12:48,16:52,18:41,19:48",
+"2026-03-08":"05:47,06:59,12:48,16:53,18:42,19:49",
+"2026-03-09":"05:46,06:57,12:47,16:54,18:43,19:50",
+"2026-03-10":"05:44,06:55,12:47,16:55,18:44,19:51",
+"2026-03-11":"05:42,06:54,12:47,16:56,18:45,19:52",
+"2026-03-12":"05:41,06:52,12:47,16:57,18:46,19:53",
+"2026-03-13":"05:39,06:51,12:46,16:57,18:47,19:54",
+"2026-03-14":"05:38,06:49,12:46,16:58,18:48,19:55",
+"2026-03-15":"05:36,06:48,12:46,16:59,18:49,19:57",
+"2026-03-16":"05:34,06:46,12:46,17:00,18:50,19:58",
+"2026-03-17":"05:33,06:45,12:45,17:00,18:51,19:59",
+"2026-03-18":"05:31,06:43,12:45,17:01,18:52,20:00",
+"2026-03-19":"05:29,06:42,12:45,17:02,18:53,20:01",
+"2026-03-20":"05:28,06:40,12:44,17:03,18:54,20:02",
+"2026-03-21":"05:26,06:38,12:44,17:03,18:55,20:03",
+"2026-03-22":"05:24,06:37,12:44,17:04,18:56,20:04",
+"2026-03-23":"05:23,06:35,12:44,17:05,18:57,20:05",
+"2026-03-24":"05:21,06:34,12:43,17:06,18:58,20:06",
+"2026-03-25":"05:19,06:32,12:43,17:06,18:59,20:07",
+"2026-03-26":"05:18,06:31,12:43,17:07,19:00,20:08",
+"2026-03-27":"05:16,06:29,12:42,17:08,19:01,20:09",
+"2026-03-28":"05:14,06:27,12:42,17:08,19:02,20:11",
+"2026-03-29":"05:12,06:26,12:42,17:09,19:03,20:12",
+"2026-03-30":"05:11,06:24,12:41,17:10,19:04,20:13",
+"2026-03-31":"05:09,06:23,12:41,17:10,19:05,20:14",
+"2026-04-01":"05:07,06:21,12:41,17:11,19:06,20:15",
+"2026-04-02":"05:05,06:20,12:41,17:11,19:07,20:16",
+"2026-04-03":"05:04,06:18,12:40,17:12,19:08,20:17",
+"2026-04-04":"05:02,06:16,12:40,17:13,19:08,20:19",
+"2026-04-05":"05:00,06:15,12:40,17:13,19:09,20:20",
+"2026-04-06":"04:58,06:13,12:39,17:14,19:10,20:21",
+"2026-04-07":"04:56,06:12,12:39,17:15,19:11,20:22",
+"2026-04-08":"04:55,06:10,12:39,17:15,19:12,20:23",
+"2026-04-09":"04:53,06:09,12:39,17:16,19:13,20:25",
+"2026-04-10":"04:51,06:07,12:38,17:16,19:14,20:26",
+"2026-04-11":"04:49,06:06,12:38,17:17,19:15,20:27",
+"2026-04-12":"04:48,06:04,12:38,17:18,19:16,20:28",
+"2026-04-13":"04:46,06:03,12:38,17:18,19:17,20:29",
+"2026-04-14":"04:44,06:01,12:37,17:19,19:18,20:31",
+"2026-04-15":"04:42,06:00,12:37,17:19,19:19,20:32",
+"2026-04-16":"04:40,05:59,12:37,17:20,19:20,20:33",
+"2026-04-17":"04:39,05:57,12:37,17:20,19:21,20:35",
+"2026-04-18":"04:37,05:56,12:36,17:21,19:22,20:36",
+"2026-04-19":"04:35,05:54,12:36,17:22,19:23,20:37",
+"2026-04-20":"04:33,05:53,12:36,17:22,19:24,20:38",
+"2026-04-21":"04:32,05:51,12:36,17:23,19:25,20:40",
+"2026-04-22":"04:30,05:50,12:35,17:23,19:26,20:41",
+"2026-04-23":"04:28,05:49,12:35,17:24,19:27,20:42",
+"2026-04-24":"04:26,05:47,12:35,17:24,19:28,20:44",
+"2026-04-25":"04:25,05:46,12:35,17:25,19:29,20:45",
+"2026-04-26":"04:23,05:45,12:35,17:25,19:30,20:46",
+"2026-04-27":"04:21,05:44,12:35,17:26,19:31,20:48",
+"2026-04-28":"04:20,05:42,12:34,17:27,19:32,20:49",
+"2026-04-29":"04:18,05:41,12:34,17:27,19:33,20:50",
+"2026-04-30":"04:16,05:40,12:34,17:28,19:34,20:52",
+"2026-05-01":"04:15,05:39,12:34,17:28,19:35,20:53",
+"2026-05-02":"04:13,05:37,12:34,17:29,19:35,20:54",
+"2026-05-03":"04:11,05:36,12:34,17:29,19:36,20:56",
+"2026-05-04":"04:10,05:35,12:34,17:30,19:37,20:57",
+"2026-05-05":"04:08,05:34,12:34,17:30,19:38,20:58",
+"2026-05-06":"04:07,05:33,12:34,17:31,19:39,21:00",
+"2026-05-07":"04:05,05:32,12:33,17:31,19:40,21:01",
+"2026-05-08":"04:04,05:31,12:33,17:32,19:41,21:02",
+"2026-05-09":"04:02,05:30,12:33,17:32,19:42,21:04",
+"2026-05-10":"04:01,05:29,12:33,17:33,19:43,21:05",
+"2026-05-11":"03:59,05:28,12:33,17:33,19:44,21:07",
+"2026-05-12":"03:58,05:27,12:33,17:34,19:45,21:08",
+"2026-05-13":"03:56,05:26,12:33,17:34,19:46,21:09",
+"2026-05-14":"03:55,05:25,12:33,17:35,19:47,21:11",
+"2026-05-15":"03:53,05:24,12:33,17:35,19:48,21:12",
+"2026-05-16":"03:52,05:23,12:33,17:36,19:49,21:13",
+"2026-05-17":"03:51,05:22,12:33,17:36,19:50,21:15",
+"2026-05-18":"03:49,05:21,12:33,17:37,19:50,21:16",
+"2026-05-19":"03:48,05:20,12:33,17:37,19:51,21:17",
+"2026-05-20":"03:47,05:20,12:33,17:38,19:52,21:18",
+"2026-05-21":"03:46,05:19,12:33,17:38,19:53,21:20",
+"2026-05-22":"03:45,05:18,12:34,17:39,19:54,21:21",
+"2026-05-23":"03:43,05:17,12:34,17:39,19:55,21:22",
+"2026-05-24":"03:42,05:17,12:34,17:40,19:56,21:24",
+"2026-05-25":"03:41,05:16,12:34,17:40,19:56,21:25",
+"2026-05-26":"03:40,05:16,12:34,17:41,19:57,21:26",
+"2026-05-27":"03:39,05:15,12:34,17:41,19:58,21:27",
+"2026-05-28":"03:38,05:14,12:34,17:42,19:59,21:28",
+"2026-05-29":"03:37,05:14,12:34,17:42,19:59,21:29",
+"2026-05-30":"03:36,05:14,12:34,17:43,20:00,21:30",
+"2026-05-31":"03:36,05:13,12:35,17:43,20:01,21:32",
+"2026-06-01":"03:35,05:13,12:35,17:43,20:02,21:33",
+"2026-06-02":"03:34,05:12,12:35,17:44,20:02,21:34",
+"2026-06-03":"03:33,05:12,12:35,17:44,20:03,21:35",
+"2026-06-04":"03:33,05:12,12:35,17:45,20:04,21:36",
+"2026-06-05":"03:32,05:11,12:35,17:45,20:04,21:36",
+"2026-06-06":"03:32,05:11,12:35,17:46,20:05,21:37",
+"2026-06-07":"03:31,05:11,12:36,17:46,20:06,21:38",
+"2026-06-08":"03:31,05:11,12:36,17:46,20:06,21:39",
+"2026-06-09":"03:30,05:10,12:36,17:47,20:07,21:40",
+"2026-06-10":"03:30,05:10,12:36,17:47,20:07,21:41",
+"2026-06-11":"03:29,05:10,12:36,17:47,20:08,21:41",
+"2026-06-12":"03:29,05:10,12:37,17:48,20:08,21:42",
+"2026-06-13":"03:29,05:10,12:37,17:48,20:09,21:43",
+"2026-06-14":"03:29,05:10,12:37,17:48,20:09,21:43",
+"2026-06-15":"03:29,05:10,12:37,17:49,20:10,21:44",
+"2026-06-16":"03:28,05:10,12:37,17:49,20:10,21:44",
+"2026-06-17":"03:28,05:10,12:38,17:49,20:10,21:45",
+"2026-06-18":"03:28,05:10,12:38,17:49,20:11,21:45",
+"2026-06-19":"03:29,05:10,12:38,17:50,20:11,21:45",
+"2026-06-20":"03:29,05:11,12:38,17:50,20:11,21:46",
+"2026-06-21":"03:29,05:11,12:39,17:50,20:11,21:46",
+"2026-06-22":"03:29,05:11,12:39,17:50,20:12,21:46",
+"2026-06-23":"03:29,05:11,12:39,17:51,20:12,21:46",
+"2026-06-24":"03:30,05:12,12:39,17:51,20:12,21:46",
+"2026-06-25":"03:30,05:12,12:39,17:51,20:12,21:47",
+"2026-06-26":"03:30,05:12,12:40,17:51,20:12,21:47",
+"2026-06-27":"03:31,05:13,12:40,17:51,20:12,21:46",
+"2026-06-28":"03:31,05:13,12:40,17:51,20:12,21:46",
+"2026-06-29":"03:32,05:13,12:40,17:52,20:12,21:46",
+"2026-06-30":"03:33,05:14,12:40,17:52,20:12,21:46",
+"2026-07-01":"03:33,05:14,12:41,17:52,20:12,21:46",
+"2026-07-02":"03:34,05:15,12:41,17:52,20:12,21:46",
+"2026-07-03":"03:35,05:15,12:41,17:52,20:12,21:45",
+"2026-07-04":"03:35,05:16,12:41,17:52,20:12,21:45",
+"2026-07-05":"03:36,05:16,12:41,17:52,20:12,21:44",
+"2026-07-06":"03:37,05:17,12:42,17:52,20:11,21:44",
+"2026-07-07":"03:38,05:17,12:42,17:52,20:11,21:43",
+"2026-07-08":"03:39,05:18,12:42,17:52,20:11,21:43",
+"2026-07-09":"03:40,05:19,12:42,17:52,20:11,21:42",
+"2026-07-10":"03:41,05:19,12:42,17:51,20:10,21:42",
+"2026-07-11":"03:42,05:20,12:42,17:51,20:10,21:41",
+"2026-07-12":"03:43,05:21,12:42,17:51,20:09,21:40",
+"2026-07-13":"03:44,05:21,12:43,17:51,20:09,21:39",
+"2026-07-14":"03:45,05:22,12:43,17:51,20:08,21:39",
+"2026-07-15":"03:46,05:23,12:43,17:51,20:08,21:38",
+"2026-07-16":"03:47,05:23,12:43,17:50,20:07,21:37",
+"2026-07-17":"03:49,05:24,12:43,17:50,20:07,21:36",
+"2026-07-18":"03:50,05:25,12:43,17:50,20:06,21:35",
+"2026-07-19":"03:51,05:26,12:43,17:50,20:06,21:34",
+"2026-07-20":"03:52,05:27,12:43,17:49,20:05,21:33",
+"2026-07-21":"03:53,05:27,12:43,17:49,20:04,21:32",
+"2026-07-22":"03:55,05:28,12:43,17:49,20:04,21:31",
+"2026-07-23":"03:56,05:29,12:43,17:48,20:03,21:29",
+"2026-07-24":"03:57,05:30,12:43,17:48,20:02,21:28",
+"2026-07-25":"03:58,05:31,12:43,17:47,20:01,21:27",
+"2026-07-26":"04:00,05:31,12:43,17:47,20:00,21:26",
+"2026-07-27":"04:01,05:32,12:43,17:47,20:00,21:25",
+"2026-07-28":"04:02,05:33,12:43,17:46,19:59,21:23",
+"2026-07-29":"04:04,05:34,12:43,17:46,19:58,21:22",
+"2026-07-30":"04:05,05:35,12:43,17:45,19:57,21:21",
+"2026-07-31":"04:06,05:36,12:43,17:44,19:56,21:19",
+"2026-08-01":"04:08,05:37,12:43,17:44,19:55,21:18",
+"2026-08-02":"04:09,05:38,12:43,17:43,19:54,21:16",
+"2026-08-03":"04:10,05:38,12:43,17:43,19:53,21:15",
+"2026-08-04":"04:12,05:39,12:43,17:42,19:52,21:13",
+"2026-08-05":"04:13,05:40,12:43,17:41,19:51,21:12",
+"2026-08-06":"04:15,05:41,12:43,17:41,19:50,21:10",
+"2026-08-07":"04:16,05:42,12:43,17:40,19:48,21:09",
+"2026-08-08":"04:17,05:43,12:43,17:39,19:47,21:07",
+"2026-08-09":"04:19,05:44,12:42,17:38,19:46,21:06",
+"2026-08-10":"04:20,05:45,12:42,17:38,19:45,21:04",
+"2026-08-11":"04:21,05:46,12:42,17:37,19:44,21:03",
+"2026-08-12":"04:23,05:46,12:42,17:36,19:43,21:01",
+"2026-08-13":"04:24,05:47,12:42,17:35,19:41,20:59",
+"2026-08-14":"04:25,05:48,12:42,17:34,19:40,20:58",
+"2026-08-15":"04:27,05:49,12:41,17:34,19:39,20:56",
+"2026-08-16":"04:28,05:50,12:41,17:33,19:37,20:54",
+"2026-08-17":"04:29,05:51,12:41,17:32,19:36,20:53",
+"2026-08-18":"04:31,05:52,12:41,17:31,19:35,20:51",
+"2026-08-19":"04:32,05:53,12:41,17:30,19:33,20:49",
+"2026-08-20":"04:33,05:54,12:40,17:29,19:32,20:48",
+"2026-08-21":"04:34,05:55,12:40,17:28,19:31,20:46",
+"2026-08-22":"04:36,05:56,12:40,17:27,19:29,20:44",
+"2026-08-23":"04:37,05:56,12:40,17:26,19:28,20:42",
+"2026-08-24":"04:38,05:57,12:39,17:25,19:26,20:41",
+"2026-08-25":"04:39,05:58,12:39,17:24,19:25,20:39",
+"2026-08-26":"04:41,05:59,12:39,17:23,19:24,20:37",
+"2026-08-27":"04:42,06:00,12:39,17:22,19:22,20:35",
+"2026-08-28":"04:43,06:01,12:38,17:21,19:21,20:34",
+"2026-08-29":"04:44,06:02,12:38,17:20,19:19,20:32",
+"2026-08-30":"04:45,06:03,12:38,17:19,19:18,20:30",
+"2026-08-31":"04:47,06:04,12:37,17:17,19:16,20:28",
+"2026-09-01":"04:48,06:05,12:37,17:16,19:15,20:26",
+"2026-09-02":"04:49,06:05,12:37,17:15,19:13,20:25",
+"2026-09-03":"04:50,06:06,12:36,17:14,19:12,20:23",
+"2026-09-04":"04:51,06:07,12:36,17:13,19:10,20:21",
+"2026-09-05":"04:53,06:08,12:36,17:12,19:08,20:19",
+"2026-09-06":"04:54,06:09,12:35,17:10,19:07,20:18",
+"2026-09-07":"04:55,06:10,12:35,17:09,19:05,20:16",
+"2026-09-08":"04:56,06:11,12:35,17:08,19:04,20:14",
+"2026-09-09":"04:57,06:12,12:34,17:07,19:02,20:12",
+"2026-09-10":"04:58,06:13,12:34,17:05,19:01,20:10",
+"2026-09-11":"04:59,06:13,12:34,17:04,18:59,20:09",
+"2026-09-12":"05:00,06:14,12:33,17:03,18:57,20:07",
+"2026-09-13":"05:01,06:15,12:33,17:02,18:56,20:05",
+"2026-09-14":"05:02,06:16,12:33,17:00,18:54,20:03",
+"2026-09-15":"05:04,06:17,12:32,16:59,18:53,20:02",
+"2026-09-16":"05:05,06:18,12:32,16:58,18:51,20:00",
+"2026-09-17":"05:06,06:19,12:32,16:56,18:49,19:58",
+"2026-09-18":"05:07,06:20,12:31,16:55,18:48,19:56",
+"2026-09-19":"05:08,06:21,12:31,16:54,18:46,19:55",
+"2026-09-20":"05:09,06:21,12:30,16:52,18:45,19:53",
+"2026-09-21":"05:10,06:22,12:30,16:51,18:43,19:51",
+"2026-09-22":"05:11,06:23,12:30,16:50,18:41,19:49",
+"2026-09-23":"05:12,06:24,12:29,16:48,18:40,19:48",
+"2026-09-24":"05:13,06:25,12:29,16:47,18:38,19:46",
+"2026-09-25":"05:14,06:26,12:29,16:46,18:37,19:44",
+"2026-09-26":"05:15,06:27,12:28,16:44,18:35,19:43",
+"2026-09-27":"05:16,06:28,12:28,16:43,18:33,19:41",
+"2026-09-28":"05:17,06:29,12:28,16:41,18:32,19:39",
+"2026-09-29":"05:18,06:30,12:27,16:40,18:30,19:38",
+"2026-09-30":"05:19,06:31,12:27,16:39,18:29,19:36",
+"2026-10-01":"05:20,06:31,12:27,16:37,18:27,19:34",
+"2026-10-02":"05:21,06:32,12:26,16:36,18:25,19:33",
+"2026-10-03":"05:22,06:33,12:26,16:35,18:24,19:31",
+"2026-10-04":"05:23,06:34,12:26,16:33,18:22,19:30",
+"2026-10-05":"05:24,06:35,12:25,16:32,18:21,19:28",
+"2026-10-06":"05:25,06:36,12:25,16:30,18:19,19:26",
+"2026-10-07":"05:26,06:37,12:25,16:29,18:18,19:25",
+"2026-10-08":"05:27,06:38,12:25,16:28,18:16,19:23",
+"2026-10-09":"05:28,06:39,12:24,16:26,18:15,19:22",
+"2026-10-10":"05:29,06:40,12:24,16:25,18:13,19:20",
+"2026-10-11":"05:29,06:41,12:24,16:24,18:12,19:19",
+"2026-10-12":"05:30,06:42,12:23,16:22,18:10,19:17",
+"2026-10-13":"05:31,06:43,12:23,16:21,18:09,19:16",
+"2026-10-14":"05:32,06:44,12:23,16:20,18:07,19:14",
+"2026-10-15":"05:33,06:45,12:23,16:18,18:06,19:13",
+"2026-10-16":"05:34,06:46,12:23,16:17,18:04,19:12",
+"2026-10-17":"05:35,06:47,12:22,16:16,18:03,19:10",
+"2026-10-18":"05:36,06:48,12:22,16:14,18:01,19:09",
+"2026-10-19":"05:37,06:49,12:22,16:13,18:00,19:08",
+"2026-10-20":"05:38,06:50,12:22,16:12,17:59,19:06",
+"2026-10-21":"05:39,06:51,12:22,16:11,17:57,19:05",
+"2026-10-22":"05:40,06:52,12:21,16:09,17:56,19:04",
+"2026-10-23":"05:41,06:53,12:21,16:08,17:54,19:02",
+"2026-10-24":"05:42,06:54,12:21,16:07,17:53,19:01",
+"2026-10-25":"05:43,06:55,12:21,16:06,17:52,19:00",
+"2026-10-26":"05:44,06:56,12:21,16:05,17:51,18:59",
+"2026-10-27":"05:45,06:57,12:21,16:03,17:49,18:58",
+"2026-10-28":"05:46,06:58,12:21,16:02,17:48,18:56",
+"2026-10-29":"05:47,06:59,12:21,16:01,17:47,18:55",
+"2026-10-30":"05:48,07:00,12:20,16:00,17:46,18:54",
+"2026-10-31":"05:49,07:01,12:20,15:59,17:44,18:53",
+"2026-11-01":"05:49,07:03,12:20,15:58,17:43,18:52",
+"2026-11-02":"05:50,07:04,12:20,15:57,17:42,18:51",
+"2026-11-03":"05:51,07:05,12:20,15:56,17:41,18:50",
+"2026-11-04":"05:52,07:06,12:20,15:55,17:40,18:49",
+"2026-11-05":"05:53,07:07,12:20,15:54,17:39,18:48",
+"2026-11-06":"05:54,07:08,12:20,15:53,17:38,18:47",
+"2026-11-07":"05:55,07:09,12:20,15:52,17:37,18:47",
+"2026-11-08":"05:56,07:10,12:21,15:51,17:36,18:46",
+"2026-11-09":"05:57,07:11,12:21,15:50,17:35,18:45",
+"2026-11-10":"05:58,07:12,12:21,15:49,17:34,18:44",
+"2026-11-11":"05:59,07:14,12:21,15:48,17:33,18:43",
+"2026-11-12":"06:00,07:15,12:21,15:47,17:32,18:43",
+"2026-11-13":"06:01,07:16,12:21,15:46,17:31,18:42",
+"2026-11-14":"06:02,07:17,12:21,15:45,17:30,18:41",
+"2026-11-15":"06:03,07:18,12:21,15:45,17:30,18:41",
+"2026-11-16":"06:04,07:19,12:22,15:44,17:29,18:40",
+"2026-11-17":"06:05,07:20,12:22,15:43,17:28,18:39",
+"2026-11-18":"06:06,07:21,12:22,15:43,17:28,18:39",
+"2026-11-19":"06:07,07:22,12:22,15:42,17:27,18:38",
+"2026-11-20":"06:08,07:23,12:22,15:41,17:26,18:38",
+"2026-11-21":"06:09,07:25,12:23,15:41,17:26,18:37",
+"2026-11-22":"06:09,07:26,12:23,15:40,17:25,18:37",
+"2026-11-23":"06:10,07:27,12:23,15:40,17:25,18:37",
+"2026-11-24":"06:11,07:28,12:23,15:39,17:24,18:36",
+"2026-11-25":"06:12,07:29,12:24,15:39,17:24,18:36",
+"2026-11-26":"06:13,07:30,12:24,15:38,17:23,18:36",
+"2026-11-27":"06:14,07:31,12:24,15:38,17:23,18:35",
+"2026-11-28":"06:15,07:32,12:25,15:38,17:22,18:35",
+"2026-11-29":"06:16,07:33,12:25,15:37,17:22,18:35",
+"2026-11-30":"06:17,07:34,12:25,15:37,17:22,18:35",
+"2026-12-01":"06:17,07:35,12:26,15:37,17:21,18:35",
+"2026-12-02":"06:18,07:36,12:26,15:36,17:21,18:35",
+"2026-12-03":"06:19,07:37,12:26,15:36,17:21,18:34",
+"2026-12-04":"06:20,07:38,12:27,15:36,17:21,18:34",
+"2026-12-05":"06:21,07:39,12:27,15:36,17:21,18:34",
+"2026-12-06":"06:22,07:40,12:28,15:36,17:21,18:34",
+"2026-12-07":"06:22,07:41,12:28,15:36,17:21,18:35",
+"2026-12-08":"06:23,07:41,12:29,15:36,17:21,18:35",
+"2026-12-09":"06:24,07:42,12:29,15:36,17:21,18:35",
+"2026-12-10":"06:25,07:43,12:29,15:36,17:21,18:35",
+"2026-12-11":"06:25,07:44,12:30,15:36,17:21,18:35",
+"2026-12-12":"06:26,07:45,12:30,15:36,17:21,18:35",
+"2026-12-13":"06:27,07:45,12:31,15:36,17:21,18:36",
+"2026-12-14":"06:27,07:46,12:31,15:37,17:21,18:36",
+"2026-12-15":"06:28,07:47,12:32,15:37,17:22,18:36",
+"2026-12-16":"06:29,07:48,12:32,15:37,17:22,18:36",
+"2026-12-17":"06:29,07:48,12:33,15:37,17:22,18:37",
+"2026-12-18":"06:30,07:49,12:33,15:38,17:23,18:37",
+"2026-12-19":"06:31,07:49,12:34,15:38,17:23,18:38",
+"2026-12-20":"06:31,07:50,12:34,15:39,17:23,18:38",
+"2026-12-21":"06:32,07:51,12:35,15:39,17:24,18:38",
+"2026-12-22":"06:32,07:51,12:35,15:40,17:24,18:39",
+"2026-12-23":"06:33,07:52,12:36,15:40,17:25,18:39",
+"2026-12-24":"06:33,07:52,12:36,15:41,17:25,18:40",
+"2026-12-25":"06:33,07:52,12:37,15:41,17:26,18:41",
+"2026-12-26":"06:34,07:53,12:37,15:42,17:27,18:41",
+"2026-12-27":"06:34,07:53,12:38,15:42,17:27,18:42",
+"2026-12-28":"06:35,07:53,12:38,15:43,17:28,18:42",
+"2026-12-29":"06:35,07:54,12:39,15:44,17:29,18:43",
+"2026-12-30":"06:35,07:54,12:39,15:45,17:29,18:44",
+"2026-12-31":"06:36,07:54,12:40,15:45,17:30,18:44"
+};
+
+// Ramazon oyi uchun aniq jadval (sajda.com tekshirilgan)
+const RAMAZON={
+  "2026-02-19":"06:10,07:23,12:51,16:37,18:23,19:32",
+  "2026-02-20":"06:09,07:22,12:51,16:38,18:25,19:33",
+  "2026-02-21":"06:07,07:21,12:50,16:39,18:26,19:34",
+  "2026-02-22":"06:06,07:20,12:50,16:40,18:27,19:35",
+  "2026-02-23":"06:05,07:18,12:50,16:41,18:28,19:36",
+  "2026-02-24":"06:04,07:17,12:50,16:42,18:29,19:37",
+  "2026-02-25":"06:02,07:15,12:50,16:43,18:30,19:38",
+  "2026-02-26":"06:01,07:14,12:50,16:44,18:31,19:39",
+  "2026-02-27":"06:00,07:13,12:50,16:45,18:32,19:40",
+  "2026-02-28":"05:58,07:11,12:49,16:46,18:33,19:41",
+  "2026-03-01":"05:57,07:10,12:49,16:46,18:34,19:42",
+  "2026-03-02":"05:55,07:08,12:49,16:47,18:35,19:43",
+  "2026-03-03":"05:54,07:07,12:49,16:48,18:36,19:44",
+  "2026-03-04":"05:53,07:05,12:49,16:49,18:37,19:45",
+  "2026-03-05":"05:51,07:04,12:48,16:50,18:38,19:46",
+  "2026-03-06":"05:50,07:02,12:48,16:51,18:39,19:47",
+  "2026-03-07":"05:48,07:01,12:48,16:52,18:41,19:48",
+  "2026-03-08":"05:47,06:59,12:48,16:53,18:42,19:49",
+  "2026-03-09":"05:45,06:58,12:47,16:53,18:43,19:50",
+  "2026-03-10":"05:44,06:56,12:47,16:54,18:44,19:51",
+  "2026-03-11":"05:42,06:55,12:47,16:55,18:45,19:53",
+  "2026-03-12":"05:40,06:53,12:47,16:56,18:46,19:54",
+  "2026-03-13":"05:39,06:52,12:46,16:57,18:47,19:55",
+  "2026-03-14":"05:37,06:50,12:46,16:57,18:48,19:56",
+  "2026-03-15":"05:36,06:49,12:46,16:58,18:49,19:57",
+  "2026-03-16":"05:34,06:47,12:46,16:59,18:50,19:58",
+  "2026-03-17":"05:33,06:46,12:45,17:00,18:51,19:59",
+  "2026-03-18":"05:31,06:44,12:45,17:00,18:52,20:00",
+  "2026-03-19":"05:29,06:42,12:45,17:01,18:53,20:01",
+  "2026-03-20":"05:28,06:41,12:44,17:02,18:54,20:02"
+};
+// Ramazon vaqtlarini PT ga qo'shamiz (aniqroq)
+Object.assign(PT, RAMAZON);
+
+function gt(k){
+  // RAMAZON oyi uchun aniq jadval
+  if(RAMAZON[k]) return RAMAZON[k].split(',');
+  // API dan kelgan yoki PT jadvalidagi vaqt
+  if(PT[k]) return PT[k].split(',');
+  // localStorage cache
+  try{
+    var cached=localStorage.getItem('pt_'+k);
+    if(cached){
+      var arr=JSON.parse(cached);
+      PT[k]=arr.join(',');
+      return arr;
+    }
+  }catch(e){}
+  // Offline hisob (zaxira)
+  var parts=k.split('-');
+  var t=calcPrayerTimes(parseInt(parts[0]),parseInt(parts[1]),parseInt(parts[2]));
+  PT[k]=t.join(',');
+  return t;
+}
+
+// ============================================================
+// OFFLINE HISOB — namozvaqti.uz API ishlamasa ishlatiladi
+// Fajr:18°, Isha:17°, Asr:Hanafi, Qarshi(38.87N,65.78E)
+// ============================================================
+function calcPrayerTimes(year, month, day) {
+  var LAT=38.8667, LON=65.7833, TZ=5;
+  var m2=month, y2=year;
+  if(m2<=2){y2--;m2+=12;}
+  var A=Math.floor(y2/100), B=2-A+Math.floor(A/4);
+  var JD=Math.floor(365.25*(y2+4716))+Math.floor(30.6001*(m2+1))+day+B-1524.5;
+  var n=JD-2451545, T=n/36525;
+  var L0=(280.46646+36000.76983*T)%360;
+  var M=(357.52911+35999.05029*T-0.0001537*T*T)%360;
+  var Mr=M*Math.PI/180;
+  var C=(1.914602-0.004817*T)*Math.sin(Mr)+0.019993*Math.sin(2*Mr)+0.000289*Math.sin(3*Mr);
+  var SL=L0+C;
+  var omega=(125.04-1934.136*T)*Math.PI/180;
+  var lam=(SL-0.00569-0.00478*Math.sin(omega))*Math.PI/180;
+  var eps=(23.439291-0.013004*T+0.00256*Math.cos(omega))*Math.PI/180;
+  var decl=Math.asin(Math.sin(eps)*Math.sin(lam));
+  var y3=Math.pow(Math.tan(eps/2),2);
+  var L0r=L0*Math.PI/180;
+  var EqT=4*(180/Math.PI)*(y3*Math.sin(2*L0r)-2*0.016709*Math.sin(Mr)+4*0.016709*y3*Math.sin(Mr)*Math.cos(2*L0r)-0.5*y3*y3*Math.sin(4*L0r)-1.25*0.016709*0.016709*Math.sin(2*Mr))/60;
+  var Dhuhr=12-EqT-LON/15+TZ;
+  var latr=LAT*Math.PI/180;
+  function HA(a){
+    var cosH=(Math.sin(a*Math.PI/180)-Math.sin(latr)*Math.sin(decl))/(Math.cos(latr)*Math.cos(decl));
+    cosH=Math.max(-1,Math.min(1,cosH));
+    return (180/Math.PI)*Math.acos(cosH)/15;
+  }
+  var Fajr=Dhuhr-HA(-18);
+  var Sunrise=Dhuhr-HA(-0.8333);
+  var asrA=(180/Math.PI)*Math.atan(1/(2+Math.tan(Math.abs(latr-decl))));
+  var Asr=Dhuhr+HA(asrA);
+  var Maghrib=Dhuhr+HA(-0.8333);
+  var Isha=Dhuhr+HA(-17);
+  function fmt(t){
+    t=((t%24)+24)%24;
+    var h=Math.floor(t), mv=Math.round((t-h)*60);
+    if(mv>=60){h++;mv-=60;}
+    return ('0'+h).slice(-2)+':'+('0'+mv).slice(-2);
+  }
+  return [fmt(Fajr),fmt(Sunrise),fmt(Dhuhr),fmt(Asr),fmt(Maghrib),fmt(Isha)];
+}
+
+// ============================================================
+// AVTOMATIK YANGILANISH TIZIMI
+// GitHub Releases dan yangi versiyani tekshiradi
+// ============================================================
+var APP_VERSION = "1.0.0";
+var GITHUB_REPO = "abdumalik0099/roza";
+
+function verGt(a, b) {
+  // "1.2.3" vs "1.0.0" solishtirish
+  var ap=a.replace('v','').split('.').map(Number);
+  var bp=b.replace('v','').split('.').map(Number);
+  for(var i=0;i<3;i++){
+    if((ap[i]||0)>(bp[i]||0)) return true;
+    if((ap[i]||0)<(bp[i]||0)) return false;
+  }
+  return false;
+}
+
+function checkUpdate() {
+  try {
+    fetch("https://api.github.com/repos/" + GITHUB_REPO + "/releases/latest", {cache:'no-store'})
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if(!data || !data.tag_name) return;
+        var latest = data.tag_name.replace('v','');
+        var current = APP_VERSION.replace('v','');
+        if(verGt(latest, current)) {
+          var apkUrl = "";
+          if(data.assets) {
+            for(var i=0;i<data.assets.length;i++){
+              if(data.assets[i].name.endsWith('.apk')){
+                apkUrl = data.assets[i].browser_download_url;
+                break;
+              }
+            }
+          }
+          showUpdateBanner(data.tag_name, apkUrl, data.body||"Yangi versiya mavjud");
+        }
+      }).catch(function(){});
+  } catch(e) {}
+}
+
+function showUpdateBanner(ver, url, notes) {
+  var b = document.getElementById('updateBanner');
+  if(!b) return;
+  b.innerHTML = 
+    '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:2px 0">'
+    +'<div style="flex:1;min-width:0">'
+    +'<div style="font-size:13px;font-weight:800;color:var(--gl)">🆕 Yangi versiya: '+ver+'</div>'
+    +'<div style="font-size:11px;color:var(--mut);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+notes.substring(0,50)+'</div>'
+    +'</div>'
+    +(url
+      ? '<a href="'+url+'" style="flex-shrink:0;background:var(--gold);color:#000;padding:9px 16px;border-radius:10px;font-size:12px;font-weight:900;text-decoration:none;display:block">⬇️ Yuklab olish</a>'
+      : '<span style="font-size:12px;color:var(--mut)">GitHub dan yuklab oling</span>')
+    +'</div>'
+    +'<button onclick="this.parentElement.style.display=\'none\'" style="position:absolute;top:6px;right:8px;background:none;border:none;color:var(--mut);font-size:16px;cursor:pointer;padding:2px">✕</button>';
+  b.style.display = 'block';
+  b.style.position = 'relative';
+}
+
+// ============================================================
+// API DAN VAQT OLISH — aladhan.com (bepul, ishonchli)
+// Qarshi: 38.8667N 65.7833E, Hanafi, Fajr 18°, Isha 17°
+// ============================================================
+var API_BASE = "https://api.aladhan.com/v1/timings/";
+var API_PARAMS = "?latitude=38.8667&longitude=65.7833&method=99&fajrAngle=18&ishaAngle=17&madhab=1&tune=0,0,0,0,0,0,0,0,0";
+
+function fmt2(t) {
+  // "05:47:00" → "05:47"
+  return t ? t.substring(0,5) : "00:00";
+}
+
+function fetchDayTimes(dateStr, onDone) {
+  // dateStr = "2026-03-08" → "08-03-2026"
+  var p = dateStr.split('-');
+  var apiDate = p[2]+'-'+p[1]+'-'+p[0];
+  var url = API_BASE + apiDate + API_PARAMS;
+
+  fetch(url, {cache:'no-store'})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(!d || !d.data || !d.data.timings) throw new Error('bad');
+      var t = d.data.timings;
+      var times = [
+        fmt2(t.Fajr),
+        fmt2(t.Sunrise),
+        fmt2(t.Dhuhr),
+        fmt2(t.Asr),
+        fmt2(t.Maghrib),
+        fmt2(t.Isha)
+      ];
+      // Cache ga saqlaymiz
+      try{ localStorage.setItem('pt_'+dateStr, JSON.stringify(times)); }catch(e){}
+      PT[dateStr] = times.join(',');
+      if(onDone) onDone(times);
+    })
+    .catch(function(){
+      if(onDone) onDone(null);
+    });
+}
+
+function fetchTodayTimes() {
+  var today = tkey();
+
+  // 1. Ramazon oyida aniq jadvalimiz bor — APIga murojaat qilmaymiz
+  if(RAMAZON[today]) return;
+
+  // 2. localStorage cache tekshiramiz (bugun allaqachon olinganmi)
+  try{
+    var cached = localStorage.getItem('pt_'+today);
+    if(cached){
+      var arr = JSON.parse(cached);
+      PT[today] = arr.join(',');
+      return; // cache dan ishlatamiz
+    }
+  }catch(e){}
+
+  // 3. API dan olamiz
+  fetchDayTimes(today, function(times){
+    if(times){
+      bldH(); bldP(); bldF();
+      toast('🌐','Vaqtlar yangilandi','aladhan.com · Qarshi');
+    }
+    // Ertangi kunni ham oldindan yuklab qo'yamiz
+    prefetchTomorrow();
+  });
+}
+
+function prefetchTomorrow() {
+  var d = new Date(); d.setDate(d.getDate()+1);
+  var tomorrow = d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+  if(RAMAZON[tomorrow]) return;
+  try{
+    if(localStorage.getItem('pt_'+tomorrow)) return; // allaqachon bor
+  }catch(e){}
+  setTimeout(function(){ fetchDayTimes(tomorrow, null); }, 5000);
+}
+
+function useCachedOrCalc(key) {
+  try{
+    var cached = localStorage.getItem('pt_'+key);
+    if(cached){ PT[key] = JSON.parse(cached).join(','); return; }
+  }catch(e){}
+  // Offline hisob (zaxira)
+  var parts = key.split('-');
+  var times = calcPrayerTimes(parseInt(parts[0]),parseInt(parts[1]),parseInt(parts[2]));
+  PT[key] = times.join(',');
+}
+const PN=["Bomdod","Quyosh","Peshin","Asr","Shom","Xufton"];
+const PI=["🌙","☀️","🌤️","🌅","🌆","🌃"];
+const PA=["الفجر","الشروق","الظهر","العصر","المغرب","العشاء"];
+const PD=["Tong namozi","Quyosh chiqishi","Tush namozi","Ikkinchi peshin","Shom / Iftor","Kecha namozi"];
+const MNS=["Yan","Fev","Mar","Apr","May","Iyn","Iyl","Avg","Sen","Okt","Noy","Dek"];
+const MNL=["Yanvar","Fevral","Mart","Aprel","May","Iyun","Iyul","Avgust","Sentabr","Oktabr","Noyabr","Dekabr"];
+const DW=["Yak","Du","Se","Ch","Pa","Ju","Sha"];
+const TB=[
+  {n:"SubhanAlloh",a:"سُبْحَانَ اللَّهِ",l:33},
+  {n:"Alhamdulilloh",a:"الْحَمْدُ لِلَّهِ",l:33},
+  {n:"Allohu Akbar",a:"اللَّهُ أَكْبَرُ",l:34},
+  {n:"La ilaha illAlloh",a:"لَا إِلَٰهَ إِلَّا اللَّهُ",l:100},
+];
+let tI=0,tC=0,tTt=0,ntf={};
+const $=id=>document.getElementById(id);
+const pz=n=>String(n).padStart(2,'0');
+function tkey(){
+  var d=new Date();
+  return d.getFullYear()+'-'+pz(d.getMonth()+1)+'-'+pz(d.getDate());
+}
+function gt(k){
+  if(RT[k]) return RT[k];
+  try{
+    var cached=localStorage.getItem('pt_'+k);
+    if(cached){RT[k]=JSON.parse(cached);return RT[k];}
+  }catch(e){}
+  var parts=k.split('-');
+  RT[k]=calcPrayerTimes(parseInt(parts[0]),parseInt(parts[1]),parseInt(parts[2]));
+  return RT[k];
+}
+function t2m(t){var p=t.split(':');return parseInt(p[0])*60+parseInt(p[1]);}
+function rday(){
+  var diff=Math.floor((new Date()-new Date('2026-02-19'))/864e5)+1;
+  return Math.max(1,Math.min(30,diff));
+}
+
+function goS(i){
+  for(let j=0;j<5;j++){
+    var s=$('s'+j), n=$('nb'+j);
+    if(s) s.classList.toggle('on',j===i);
+    if(n) n.classList.toggle('on',j===i);
+  }
+  if(i===1)bldP();
+  if(i===2)bldF();
+  if(i===3)bldT();
+  if(i===4)bldSozlama();
+}
+
+function openDua(tp){
+  $('dMov').classList.add('on');
+  if(tp==='iftar'){$('mT').textContent='🤲 Iftor Duosi';$('mS').textContent="Og'iz ochish — iftorlik vaqti";swDua(0);}
+  else{$('mT').textContent='🤲 Saharlik Duosi';$('mS').textContent="Og'iz yopish — ro'za niyati";swDua(1);}
+}
+function closeDua(e){if(!e||e.target===$('dMov'))$('dMov').classList.remove('on')}
+function swDua(i){[0,1].forEach(j=>{$('dt'+j).classList.toggle('on',j===i);$('d'+j).classList.toggle('on',j===i)})}
+
+function toast(ico,txt,sub){
+  $('tIco').textContent=ico;$('tTxt').textContent=txt;$('tSub').textContent=sub;
+  const t=$('toast');t.classList.add('on');setTimeout(()=>t.classList.remove('on'),4500);
+  // Android native notification
+  if(window.Android && window.Android.showNotification) {
+    window.Android.showNotification(ico+' '+txt, sub);
+  }
+}
+
+/* HOME — immediately load times */
+function bldH(){
+  var k=tkey(), t=gt(k), d=new Date(), rd=rday();
+  $('hDv').textContent=d.getDate()+' '+MNS[d.getMonth()]+', '+DW[d.getDay()];
+  $('hRd').textContent=rd+'-kun Ramazon';
+  $('hSh').textContent=t[0];
+  $('hIf').textContent=t[4];
+  $('hRm').textContent=Math.max(0,30-rd);
+  var L=$('hPL'); L.innerHTML='';
+  for(var i=0;i<t.length;i++){
+    var r=document.createElement('div'); r.className='qpr';
+    r.innerHTML='<span style="font-size:18px">'+PI[i]+'</span>'
+      +'<span style="flex:1;margin-left:11px;font-size:14px;font-weight:700">'+PN[i]+'</span>'
+      +'<span style="font-size:18px;font-weight:900;color:var(--gl)">'+t[i]+'</span>';
+    L.appendChild(r);
+  }
+  updR(t);
+}
+
+function updR(t){
+  var now=new Date(), nm=now.getHours()*60+now.getMinutes(), ns=now.getSeconds();
+  var sm=t2m(t[0]), im=t2m(t[4]);
+  var tgt, lbl;
+  if(nm<sm){tgt=sm;lbl="SAHARLIKKA";}
+  else if(nm<im){tgt=im;lbl="IFTORLIKKA";}
+  else{tgt=sm+1440;lbl="SAHARLIKKA";}
+  var diff=(tgt-nm)*60-ns;
+  if(diff<0)diff=0;
+  $('hC').textContent=pz(Math.floor(diff/3600))+':'+pz(Math.floor((diff%3600)/60))+':'+pz(diff%60);
+  $('hL').textContent=lbl;
+  var circ=2*Math.PI*47, tot=(im-sm)*60, pas=(nm-sm)*60+ns;
+  var pct=Math.max(0,Math.min(1,pas/tot));
+  $('rp').style.strokeDasharray=circ;
+  $('rp').style.strokeDashoffset=circ*(1-pct);
+}
+
+function bldP(){
+  var k=tkey(), t=gt(k), now=new Date(), nm=now.getHours()*60+now.getMinutes(), d=new Date();
+  $('pSub').textContent='Qarshi · '+d.getDate()+' '+MNL[d.getMonth()]+' '+d.getFullYear()+', '+DW[d.getDay()];
+  var cur=-1;
+  for(var i=0;i<t.length;i++) if(nm>=t2m(t[i])) cur=i;
+  var L=$('pL'); L.innerHTML='';
+  for(var i=0;i<t.length;i++){
+    var c=document.createElement('div');
+    c.className='pc'+(i===cur?' cur':'');
+    c.innerHTML='<div class="pico">'+PI[i]+'</div>'
+      +'<div class="pin"><div class="pn">'+PN[i]+'<span class="par">'+PA[i]+'</span></div>'
+      +'<div class="pd">'+PD[i]+'</div></div>'
+      +'<div style="text-align:right"><div class="pt">'+t[i]+'</div>'
+      +(i===cur?'<div class="pbg">HOZIR</div>':'')+'</div>';
+    L.appendChild(c);
+  }
+}
+
+function bldF(){
+  var k=tkey(), t=gt(k), rd=rday();
+  $('fD').textContent=rd;
+  var today=new Date();
+  $('fGreg').textContent=today.getDate()+' '+MNL[today.getMonth()]+' '+today.getFullYear()+', '+DW[today.getDay()];
+  $('fSh').textContent=t[0];
+  $('fIf').textContent=t[4];
+  $('fF').style.width=(rd/30*100)+'%';
+  var H=$('calH'); H.innerHTML='';
+  for(var di=0;di<DW.length;di++){var hc=document.createElement('div');hc.className='cal-dn';hc.textContent=DW[di];H.appendChild(hc);}
+  var G=$('dG'); G.innerHTML='';
+  for(var i=0;i<6;i++){var e=document.createElement('div');e.className='dc empty';G.appendChild(e);}
+  for(var i=1;i<=30;i++){
+    var c=document.createElement('div');
+    c.className='dc'+(i<=rd?' past':' fut');
+    var greg=new Date('2026-02-19'); greg.setDate(greg.getDate()+i-1);
+    c.innerHTML='<div class="rday">'+i+'</div><div class="greg">'+greg.getDate()+'/'+(greg.getMonth()+1)+'</div>';
+    G.appendChild(c);
+  }
+}
+
+function bldT(){
+  var cs=$('tbCs'); cs.innerHTML='';
+  for(var i=0;i<TB.length;i++){
+    (function(idx){
+      var b=document.createElement('button');
+      b.className='tbc'+(idx===tI?' on':'');
+      b.textContent=TB[idx].n;
+      b.onclick=function(){tI=idx;tC=0;tTt=0;bldT();};
+      cs.appendChild(b);
+    })(i);
+  }
+  var tb=TB[tI];
+  $('tbNm').textContent=tb.n;
+  $('tbA').textContent=tb.a;
+  $('tbSt').textContent='Har doira: '+tb.l+' marta';
+  updTd();
+}
+function tapT(){
+  tC++;tTt++;
+  var tb=TB[tI];
+  if(tC>tb.l){tC=1;toast('\ud83d\udcff',tb.l+" marta to'ldi!",tb.n+' davom etmoqda');}
+  updTd();
+  if(navigator.vibrate)navigator.vibrate(22);
+  var c=$('tbC');c.style.transform='scale(.91)';
+  setTimeout(function(){c.style.transform='scale(1)';},105);
+}
+function updTd(){
+  var tb=TB[tI];
+  $('tbN').textContent=tC;
+  $('tbTt').textContent='Jami: '+tTt+' marta';
+  $('tbF').style.width=((tC/tb.l)*100)+'%';
+}
+function resetT(){tC=0;tTt=0;updTd();}
+
+
+
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js').catch(function(){});
+}
+if(typeof Notification!=='undefined' && Notification.permission==='default'){
+  Notification.requestPermission().then(function(p){
+    if(p==='granted') toast('🔔','Bildirishnomalar yoqildi!','Namoz vaqtlarida xabar keladi');
+  });
+}
+
+// ============================================================
+// NOTIFICATION SOZLAMALARI
+// ============================================================
+var NOTIF_KEYS = ['bomdod','quyosh','peshin','asr','shom','xufton','sahar30','sahar10','iftor15','iftor5'];
+var NOTIF_LABELS = {
+  bomdod:'🌙 Bomdod namozi',quyosh:'☀️ Quyosh namozi',
+  peshin:'🌤️ Peshin namozi',asr:'🌅 Asr namozi',
+  shom:'🌆 Shom / Iftorlik',xufton:'🌃 Xufton namozi',
+  sahar30:'⏰ Saharlikka 30 daqiqa',sahar10:'⚠️ Saharlikka 10 daqiqa',
+  iftor15:'🌙 Iftorlikka 15 daqiqa',iftor5:'🌙 Iftorlikka 5 daqiqa'
+};
+
+function getNS(key){ // notification setting
+  try{ var v=localStorage.getItem('ns_'+key); return v===null?true:v==='1'; }catch(e){return true;}
+}
+function setNS(key,val){
+  try{ localStorage.setItem('ns_'+key, val?'1':'0'); }catch(e){}
+}
+function toggleAllNotif(val){
+  NOTIF_KEYS.forEach(function(k){ setNS(k,val); });
+  bldSozlama();
+}
+
+function bldSozlama(){
+  // Versiya
+  if($('appVerTxt')) $('appVerTxt').textContent = 'v'+APP_VERSION;
+  // Umumiy toggle
+  var allOn = NOTIF_KEYS.every(function(k){return getNS(k);});
+  if($('ntAll')) $('ntAll').checked = allOn;
+  // Ro'yxat
+  var L=$('notifList'); if(!L) return;
+  L.innerHTML='';
+  NOTIF_KEYS.forEach(function(key){
+    var on=getNS(key);
+    var row=document.createElement('div');
+    row.className='ntrow'+(on?'':' off');
+    row.innerHTML='<div class="ntleft"><span style="font-size:18px">'+NOTIF_LABELS[key].split(' ')[0]+'</span>'
+      +'<div><div style="font-size:13px;font-weight:700;color:var(--txt)">'+NOTIF_LABELS[key].substring(NOTIF_LABELS[key].indexOf(' ')+1)+'</div></div></div>'
+      +'<label class="tgl"><input type="checkbox"'+(on?' checked':'')+'><span class="tgs"></span></label>';
+    row.querySelector('input').onchange=(function(k,r){
+      return function(e){
+        setNS(k,e.target.checked);
+        r.className='ntrow'+(e.target.checked?'':' off');
+        var allOn=NOTIF_KEYS.every(function(x){return getNS(x);});
+        if($('ntAll')) $('ntAll').checked=allOn;
+      };
+    })(key,row);
+    L.appendChild(row);
+  });
+}
+
+// ============================================================
+// YANGILANGAN sendNotif — sozlamalarni tekshiradi
+// ============================================================
+function sendNotif(ico, title, body, settingKey) {
+  // Sozlama tekshir
+  if(settingKey && !getNS(settingKey)) return;
+  // Android native
+  if(window.Android && window.Android.showNotification) {
+    window.Android.showNotification(ico+' '+title, body);
+  }
+  // Web Notification
+  if(typeof Notification!=='undefined' && Notification.permission==='granted') {
+    try{ new Notification(ico+' '+title,{body:body,icon:'icons/icon-192x192.png'}); }catch(e){}
+  }
+  toast(ico, title, body);
+  if(navigator.vibrate) navigator.vibrate([150,80,150,80,300]);
+}
+
+// ============================================================
+// YANGILANGAN chkN — sozlama kalitlari bilan
+// ============================================================
+function chkN(){
+  var k=tkey(), t=gt(k), now=new Date();
+  var nm=now.getHours()*60+now.getMinutes(), ns=now.getSeconds();
+  var pKeys=['bomdod','quyosh','peshin','asr','shom','xufton'];
+  for(var i=0;i<t.length;i++){
+    var nk=k+'p'+i;
+    if(nm===t2m(t[i])&&ns<10&&!ntf[nk]){
+      ntf[nk]=true;
+      sendNotif(PI[i],PN[i]+' namozi kirdi!',t[i]+' · Qarshi',pKeys[i]);
+    }
+  }
+  var f30=k+'f30';
+  if(nm===t2m(t[0])-30&&ns<10&&!ntf[f30]){
+    ntf[f30]=true;
+    sendNotif('⏰','Saharlikka 30 daqiqa qoldi!',t[0]+' · Uxlab qolmang!','sahar30');
+  }
+  var fw=k+'fw';
+  if(nm===t2m(t[0])-10&&ns<10&&!ntf[fw]){
+    ntf[fw]=true;
+    sendNotif('⚠️','Saharlik tugaydi!','10 daqiqa qoldi · '+t[0],'sahar10');
+  }
+  var i15=k+'i15';
+  if(nm===t2m(t[4])-15&&ns<10&&!ntf[i15]){
+    ntf[i15]=true;
+    sendNotif('🌙','Iftorlikka 15 daqiqa qoldi!',t[4]+' · Tayyorlaning!','iftor15');
+  }
+  var iw=k+'iw';
+  if(nm===t2m(t[4])-5&&ns<10&&!ntf[iw]){
+    ntf[iw]=true;
+    sendNotif('🌙','Iftorlikka 5 daqiqa qoldi!',t[4],'iftor5');
+  }
+}
+
+function init(){
+  bldH();
+  bldT();
+  setInterval(function(){ updR(gt(tkey())); chkN(); }, 1000);
+  setTimeout(fetchTodayTimes, 1500);
+  setTimeout(checkUpdate, 3000);
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+</script>
+</body>
+</html>
