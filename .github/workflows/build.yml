@@ -1,0 +1,54 @@
+name: Build & Release APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versiya (masalan: 1.1.0)'
+        required: false
+        default: ''
+      release_notes:
+        description: 'Yangilanish tavsifi'
+        required: false
+        default: 'Yangilanishlar qoshildi'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - uses: android-actions/setup-android@v3
+    - uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: '8.2'
+    - name: Build APK
+      run: |
+        chmod +x gradlew
+        gradle assembleDebug --no-daemon
+      env:
+        ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
+    - name: APK saqlash
+      run: |
+        mkdir -p release
+        cp app/build/outputs/apk/debug/app-debug.apk release/RamazonQarshi.apk
+    - name: Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: RamazonQarshi-APK
+        path: release/RamazonQarshi.apk
+    - name: Release
+      if: ${{ github.event.inputs.version != '' }}
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: v${{ github.event.inputs.version }}
+        name: "Ramazon Qarshi v${{ github.event.inputs.version }}"
+        body: ${{ github.event.inputs.release_notes }}
+        files: release/RamazonQarshi.apk
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
